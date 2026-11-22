@@ -1,5 +1,5 @@
 import {
-  ArrowLeftRight, BarChart3, Boxes, CalendarClock, ClipboardList, Clock, Cpu, Globe, HandCoins, Home, LogOut, Menu,
+  ArrowLeftRight, Barcode, BarChart3, Boxes, CalendarClock, ClipboardList, Clock, Cpu, Globe, HandCoins, Home, LogOut, Menu,
   CloudOff, PackageX, Receipt, RefreshCw, UserCog, Settings, ShieldCheck, ShoppingCart, Truck, Users, Vault, Wallet, Wrench, type LucideIcon,
 } from 'lucide-react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
@@ -23,6 +23,7 @@ export const navGroups: { title: string; items: Item[] }[] = [
     { to: '/wallets', label: 'المحافظ والماكينات', icon: Wallet, section: 'wallets' },
     { to: '/agents', label: 'المناديب', icon: UserCog, section: 'wallets' },
     { to: '/products', label: 'المنتجات والمخزون', icon: Boxes, section: 'inventory' },
+    { to: '/labels', label: 'طباعة الباركود', icon: Barcode, section: 'inventory' },
     { to: '/purchases', label: 'التوريد', icon: Truck, section: 'inventory' },
     { to: '/supplier-returns', label: 'مرتجعات الموردين', icon: PackageX, section: 'inventory' },
     { to: '/used-devices', label: 'المستعمل والتبديل', icon: ArrowLeftRight, section: 'inventory' },

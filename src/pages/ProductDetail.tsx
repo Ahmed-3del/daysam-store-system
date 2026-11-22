@@ -1,4 +1,4 @@
-import { Camera, ClipboardCheck, Globe, Pencil, Trash2 } from 'lucide-react'
+import { Barcode, Camera, ClipboardCheck, Globe, Pencil, Trash2 } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Badge, Field, InfoRow, Loading, Modal, Money, PageHeader, Tabs, type Tone } from '../components/ui'
@@ -30,6 +30,7 @@ export default function ProductDetail() {
     <div className="space-y-4">
       <PageHeader back="/products" title={p.name} subtitle={p.category_name} actions={
         <>
+          {!p.is_service && <Link to={`/labels?ids=${p.id}`} className="btn-secondary px-3" aria-label="طباعة باركود"><Barcode size={18} /></Link>}
           <Link to={`/products/${p.id}/edit`} className="btn-secondary px-3"><Pencil size={18} /></Link>
           {<button className="btn-ghost px-3 text-rose-600" onClick={() => confirm('أرشفة المنتج؟') && archive.mutate(undefined)} aria-label="أرشفة"><Trash2 size={18} /></button>}
         </>

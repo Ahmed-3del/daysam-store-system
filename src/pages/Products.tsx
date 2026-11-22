@@ -1,4 +1,4 @@
-import { Boxes, Plus, ScanBarcode } from 'lucide-react'
+import { Barcode, Boxes, Plus, ScanBarcode } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { BarcodeScanner } from '../components/BarcodeScanner'
@@ -34,7 +34,7 @@ export default function Products() {
 
   return (
     <div className="space-y-3">
-      <PageHeader title="المنتجات والمخزون" actions={<Link to="/purchases/new" className="btn-secondary">توريد</Link>} />
+      <PageHeader title="المنتجات والمخزون" actions={<><Link to={`/labels${filter && filter !== 'low' ? `?category=${filter}` : ''}`} className="btn-secondary"><Barcode size={18} />طباعة باركود</Link><Link to="/purchases/new" className="btn-secondary">توريد</Link></>} />
       <SearchBox value={q} onChange={(v) => { setQ(v); setPage(1) }} placeholder="اسم، ماركة أو باركود"
         trailing={<button className="btn-ghost px-2" onClick={() => setScan(true)} aria-label="مسح"><ScanBarcode size={20} /></button>} />
       <Tabs value={filter} onChange={(v) => { setPage(1); setParams(v === 'low' ? { low_stock: '1' } : v ? { category: v } : {}) }} options={[
