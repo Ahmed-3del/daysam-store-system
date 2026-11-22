@@ -1,10 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://store.64-226-89-173.sslip.io/api/$1" },
-    { "source": "/media/(.*)", "destination": "https://store.64-226-89-173.sslip.io/media/$1" },
-    { "source": "/admin/(.*)", "destination": "https://store.64-226-89-173.sslip.io/admin/$1" },
-    { "source": "/static/(.*)", "destination": "https://store.64-226-89-173.sslip.io/static/$1" },
+    { "source": "/api/(.*)", "destination": "https://store-api.daysam.co/api/$1" },
+    { "source": "/media/(.*)", "destination": "https://store-api.daysam.co/media/$1" },
+    { "source": "/admin/(.*)", "destination": "https://store-api.daysam.co/admin/$1" },
+    { "source": "/static/(.*)", "destination": "https://store-api.daysam.co/static/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
