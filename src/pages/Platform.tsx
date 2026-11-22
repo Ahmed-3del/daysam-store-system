@@ -1,5 +1,5 @@
 import {
-  AlertTriangle, ArrowRight, Ban, CalendarPlus, CheckCircle2, KeyRound, LogIn, LogOut, Pencil, Plus, Store, Users,
+  AlertTriangle, ArrowRight, Ban, MessageSquareText, CalendarPlus, CheckCircle2, KeyRound, LogIn, LogOut, Pencil, Plus, Store, Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { useAuth } from '../lib/auth'
 import { date, dateTime, num, todayISO } from '../lib/format'
 import { useAction, useDebounced, useGet, useList } from '../lib/hooks'
 import { usePresets } from './Setup'
+import { ShopSmsPanel } from './PlatformSms'
 
 interface PUser { id: number; username: string; display_name: string; phone: string; role: string; role_display: string; is_active: boolean; last_login: string | null }
 interface PShop {
@@ -48,6 +49,7 @@ export function PlatformLayout() {
             <div className="font-extrabold">لوحة إدارة المنصة</div>
             <div className="text-xs text-white/60">{user?.display_name} · مدير النظام</div>
           </Link>
+          <Link to="/platform/sms" className="btn-ghost px-3 py-1.5 text-white/90 hover:bg-white/10"><MessageSquareText size={18} /><span className="hidden sm:inline">SMS</span></Link>
           <a href="/admin/" className="btn-ghost hidden px-3 py-1.5 text-white/80 hover:bg-white/10 sm:inline-flex">Django Admin</a>
           <button onClick={logout} className="btn-ghost px-3 py-1.5 text-rose-300 hover:bg-white/10"><LogOut size={18} /><span className="hidden sm:inline">خروج</span></button>
         </div>
@@ -223,6 +225,7 @@ export function PlatformShopDetail() {
           ))}
         </section>
       </div>
+      <ShopSmsPanel shopId={s.id} />
       {modal === 'renew' && <RenewModal shop={s} onClose={() => setModal(null)} />}
       {modal === 'edit' && <EditShopModal shop={s} onClose={() => setModal(null)} />}
       {modal === 'password' && <PasswordModal shop={s} onClose={() => setModal(null)} />}

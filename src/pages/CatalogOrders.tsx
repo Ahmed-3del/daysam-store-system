@@ -1,4 +1,5 @@
 import { Copy, ExternalLink, Globe, MessageCircle, ShoppingCart } from 'lucide-react'
+import { SmsButton } from '../components/Sms'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useToast } from '../components/toast'
@@ -82,6 +83,8 @@ export default function CatalogOrders() {
                   href={whatsappLink(o.customer_phone, `مرحباً ${o.customer_name}، استلمنا طلبك رقم #${o.number} من ${shop?.name} بإجمالي ${money(o.total, shop?.currency)}. سنتواصل معك للتأكيد.`)}>
                   <MessageCircle size={16} />واتساب
                 </a>
+                <SmsButton to={o.customer_phone} kind="order" className="btn-secondary px-3 py-2"
+                  text={`${shop?.name ?? ''}: استلمنا طلبك رقم #${o.number} بإجمالي ${money(o.total, shop?.currency)}. سنتواصل معك للتأكيد.`} />
                 {o.status !== 'completed' && o.status !== 'cancelled' && (
                   <>
                     {o.status === 'new' && <button className="btn-secondary px-3 py-2" onClick={() => setOrderStatus.mutate({ id: o.id, s: 'confirmed' })}>تأكيد</button>}

@@ -8,6 +8,7 @@ import Bundles from './pages/Bundles'
 import OfflineSales from './pages/OfflineSales'
 import SetupWizard from './pages/Setup'
 import { BlockedScreen, PlatformHome, PlatformLayout, PlatformShopDetail } from './pages/Platform'
+import { PlatformSmsOverview } from './pages/PlatformSms'
 import Cash from './pages/Cash'
 import CatalogOrders from './pages/CatalogOrders'
 import PublicCatalog from './pages/PublicCatalog'
@@ -54,6 +55,7 @@ export default function App() {
         <Route element={<PlatformLayout />}>
           <Route path="platform" element={<PlatformHome />} />
           <Route path="platform/shops/:id" element={<PlatformShopDetail />} />
+          <Route path="platform/sms" element={<PlatformSmsOverview />} />
           <Route path="*" element={<Navigate to="/platform" replace />} />
         </Route>
       ) : user && blocked ? (

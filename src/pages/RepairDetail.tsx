@@ -1,4 +1,5 @@
 import { Camera, CheckCircle2, FileText, MessageCircle, PackagePlus, Printer, RotateCcw, ShieldCheck, Trash2, X, XCircle } from 'lucide-react'
+import { SmsButton } from '../components/Sms'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { ProductSearchModal } from '../components/pickers'
@@ -60,6 +61,7 @@ export default function RepairDetail() {
       <div className="no-print flex flex-wrap gap-2">
         <button className="btn-secondary" onClick={() => window.print()}><Printer size={18} />طباعة الإيصال</button>
         {t.customer_phone && <a className="btn-success" target="_blank" rel="noreferrer" href={whatsappLink(t.customer_phone, waText)}><MessageCircle size={18} />واتساب للعميل</a>}
+        <SmsButton to={t.customer_phone} kind="repair_status" text={statusMessage(t, shop, trackUrl, t.status)} />
         {!closed && <button className="btn-primary" onClick={() => setDelivering(true)}><CheckCircle2 size={18} />تسليم الجهاز</button>}
         {!closed && <button className="btn-ghost text-rose-600" onClick={() => confirm('إلغاء التذكرة وإرجاع القطع للمخزن ورد المقدم؟') && cancel.mutate(undefined)}><XCircle size={18} />إلغاء</button>}
       </div>
@@ -69,6 +71,7 @@ export default function RepairDetail() {
           تم تغيير الحالة — أبلغ العميل؟
           <a className="btn-success ms-auto px-3 py-1.5" target="_blank" rel="noreferrer" onClick={() => setNotify(null)}
             href={whatsappLink(t.customer_phone, statusMessage(t, shop, trackUrl, notify))}><MessageCircle size={16} />إرسال واتساب</a>
+          <SmsButton to={t.customer_phone} kind={notify === 'ready' ? 'repair_ready' : 'repair_status'} text={statusMessage(t, shop, trackUrl, notify)} className="btn-secondary px-3 py-1.5" />
           <button className="btn-ghost px-2" onClick={() => setNotify(null)} aria-label="إغلاق"><X size={16} /></button>
         </div>
       )}
@@ -282,6 +285,7 @@ function QuoteCard({ t, shop, trackUrl, closed, onQuote, onRespond, busy }: {
             <a className="btn-success px-3 py-2" target="_blank" rel="noreferrer"
               href={whatsappLink(t.customer_phone, statusMessage(t, shop, trackUrl, 'awaiting_approval'))}><MessageCircle size={16} />إرسال للعميل</a>
           )}
+          <SmsButton to={t.customer_phone} kind="repair_quote" text={statusMessage(t, shop, trackUrl, 'awaiting_approval')} className="btn-secondary px-3 py-2" />
           <button className="btn-secondary px-3 py-2 text-emerald-700" disabled={busy} onClick={() => onRespond(true)}>العميل وافق (تليفونياً)</button>
           <button className="btn-secondary px-3 py-2 text-rose-600" disabled={busy} onClick={() => onRespond(false)}>العميل رفض</button>
         </div>

@@ -2,6 +2,7 @@ import { Download, ImagePlus, KeyRound, Plus, Printer, UserRound } from 'lucide-
 import { useEffect, useRef, useState } from 'react'
 import { InvoiceReceipt } from '../components/InvoiceReceipt'
 import { CustomizationCard } from './Setup'
+import { SmsSettingsCard } from '../components/Sms'
 import { Badge, Field, Modal, Money, PageHeader } from '../components/ui'
 import { useToast } from '../components/toast'
 import { api } from '../lib/api'
@@ -67,6 +68,7 @@ export default function Settings() {
           <button className="btn-primary sm:col-span-2" disabled={save.isPending} onClick={() => save.mutate(undefined)}>حفظ</button>
         </section>
       )}
+      {isManager && <SmsSettingsCard />}
       {isManager && <CustomizationCard />}
       {isManager && <ReceiptSettings f={f} setF={setF} onSave={() => save.mutate(undefined)} saving={save.isPending} />}
       {isManager && <DrawersCard />}

@@ -1,4 +1,5 @@
 import { MessageCircle, Printer, RotateCcw, ShoppingCart } from 'lucide-react'
+import { SmsButton } from '../components/Sms'
 import { useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { InvoiceReceipt } from '../components/InvoiceReceipt'
@@ -34,6 +35,7 @@ export default function InvoiceDetail() {
       <div className="no-print flex flex-wrap gap-2">
         <button className="btn-primary" onClick={() => window.print()}><Printer size={18} />طباعة</button>
         <a className="btn-success" target="_blank" rel="noreferrer" href={whatsappLink(inv.customer_phone, waText)}><MessageCircle size={18} />إرسال واتساب</a>
+        <SmsButton to={inv.customer_phone} kind="invoice" text={`${shop.name}: فاتورتك #${inv.number} بقيمة ${money(inv.total, shop.currency)}. ${link}`} />
         {canReturn && <button className="btn-secondary" onClick={() => setReturning(true)}><RotateCcw size={18} />مرتجع</button>}
         {params.get('new') && <Link to="/pos" className="btn-secondary"><ShoppingCart size={18} />بيع جديد</Link>}
       </div>

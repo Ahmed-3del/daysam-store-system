@@ -1,4 +1,5 @@
 import { HandCoins, MessageCircle, Phone } from 'lucide-react'
+import { SmsButton } from '../components/Sms'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Badge, Field, InfoRow, Loading, Modal, Money, PageHeader, type Tone } from '../components/ui'
@@ -41,6 +42,8 @@ export default function InstallmentDetail() {
                 <MessageCircle size={18} />تذكير
               </a>
             )}
+            {p.next_due && <SmsButton to={p.customer_phone} kind="installment" className="btn-secondary flex-1"
+              text={`نذكركم بالقسط رقم ${p.next_due.seq} المستحق ${date(p.next_due.due_date)} بقيمة ${money(p.next_due.remaining, cur)}.`} />}
           </div>
           <div>
             <InfoRow label="العميل"><Link className="text-brand-700" to={`/customers/${p.customer}`}>{p.customer_name}</Link></InfoRow>

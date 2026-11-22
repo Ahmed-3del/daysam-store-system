@@ -1,4 +1,5 @@
 import { Camera, FileText, HandCoins, MessageCircle, Pencil, Phone, Trash2 } from 'lucide-react'
+import { SmsButton } from '../components/Sms'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Field, InfoRow, Loading, Modal, Money, PageHeader } from '../components/ui'
@@ -41,6 +42,8 @@ function ContactDetail({ kind }: { kind: 'customers' | 'suppliers' }) {
                 <MessageCircle size={18} />واتساب
               </a>
             )}
+            {isCust && <SmsButton to={c.phone} kind="debt" className="btn-secondary flex-1"
+              text={bal > 0 ? `مرحباً ${c.name}، نود تذكيركم بأن المستحق عليكم ${money(bal, cur)}. شكراً لتعاملكم معنا.` : `مرحباً ${c.name}`} />}
           </div>
           <div>
             <InfoRow label="الموبايل"><span dir="ltr">{c.phone || '—'}</span></InfoRow>

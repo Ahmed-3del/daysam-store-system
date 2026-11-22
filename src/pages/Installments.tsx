@@ -1,10 +1,11 @@
 import { CalendarClock, MessageCircle, Plus } from 'lucide-react'
+import { SmsButton } from '../components/Sms'
 import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { CustomerPicker } from '../components/pickers'
 import { Badge, Empty, Fab, Field, Loading, Modal, Money, PageHeader, SearchBox, Tabs } from '../components/ui'
 import { api } from '../lib/api'
-import { useCurrency } from '../lib/auth'
+import { useAuth, useCurrency } from '../lib/auth'
 import { date, money, todayISO, whatsappLink } from '../lib/format'
 import { useAction, useDebounced, useGet, useList } from '../lib/hooks'
 import type { Customer, InstallmentPlan } from '../lib/types'
@@ -15,6 +16,7 @@ export default function Installments() {
   const [params, setParams] = useSearchParams()
   const nav = useNavigate()
   const cur = useCurrency()
+  const { shop } = useAuth()
   const [q, setQ] = useState('')
   const [adding, setAdding] = useState(false)
   const tab = params.get('overdue') ? 'overdue' : params.get('tab') || 'upcoming'
@@ -50,6 +52,8 @@ export default function Installments() {
                     <MessageCircle size={20} />
                   </a>
                 )}
+                <SmsButton to={d.customer_phone} kind="installment" className="btn-ghost px-2 text-brand-700" label=""
+                  text={`${shop?.name ?? ''}: نذكركم بالقسط رقم ${d.seq} بتاريخ ${date(d.due_date)} بقيمة ${money(d.remaining, cur)}.`} />
               </div>
             ))}
           </div>
