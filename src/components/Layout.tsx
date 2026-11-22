@@ -1,6 +1,6 @@
 import {
   ArrowLeftRight, Barcode, BarChart3, Boxes, CalendarClock, ClipboardList, Clock, Cpu, Globe, HandCoins, Home, LogOut, Menu,
-  CloudOff, PackageX, Receipt, RefreshCw, UserCog, Settings, ShieldCheck, ShoppingCart, Truck, Users, Vault, Wallet, Wrench, type LucideIcon,
+  CloudOff, PackageX, Receipt, RefreshCw, Send, UserCog, Settings, ShieldCheck, ShoppingCart, Truck, Users, Vault, Wallet, Wrench, type LucideIcon,
 } from 'lucide-react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useOffline } from '../lib/offline'
@@ -32,6 +32,7 @@ export const navGroups: { title: string; items: Item[] }[] = [
   ] },
   { title: 'الحسابات والإدارة', items: [
     { to: '/customers', label: 'العملاء', icon: Users, section: 'contacts' },
+    { to: '/messaging', label: 'مراسلة العملاء', icon: Send, section: 'contacts', manager: true },
     { to: '/suppliers', label: 'الموردين', icon: Truck, section: 'contacts' },
     { to: '/expenses', label: 'المصروفات والمسحوبات', icon: HandCoins, section: 'expenses' },
     { to: '/cash', label: 'الخزينة', icon: Vault, section: 'cash' },

@@ -183,7 +183,7 @@ export default function Labels() {
       }`}</style>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="card space-y-4 p-4 lg:col-span-1">
+        <div className="card min-w-0 space-y-4 p-4 lg:col-span-1">
           <div>
             <span className="label">ماذا تطبع؟</span>
             <Tabs value={scope} onChange={setScope} options={[
@@ -240,7 +240,7 @@ export default function Labels() {
           </div>
         </div>
 
-        <div className="space-y-3 lg:col-span-2">
+        <div className="min-w-0 space-y-3 lg:col-span-2">
           {!ready ? (
             <div className="card p-6 text-center text-sm text-slate-500">{scope === 'categories' ? 'اختر قسماً أو أكثر.' : 'أضف المنتجات التي تريد طباعة ملصقاتها.'}</div>
           ) : !data ? <Loading /> : (

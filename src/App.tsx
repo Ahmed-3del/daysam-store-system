@@ -30,6 +30,7 @@ import ProductDetail from './pages/ProductDetail'
 import ProductForm from './pages/ProductForm'
 import Products from './pages/Products'
 import Labels from './pages/Labels'
+import Messaging from './pages/Messaging'
 import { PublicInvoice, PublicRepair } from './pages/Public'
 import PurchaseForm from './pages/PurchaseForm'
 import Purchases from './pages/Purchases'
@@ -77,6 +78,7 @@ export default function App() {
           <Route path="invoices/:id" element={<InvoiceDetail />} />
           <Route path="products" element={<Products />} />
           <Route path="labels" element={<Labels />} />
+          <Route path="messaging" element={<Messaging />} />
           <Route path="products/new" element={<ProductForm />} />
           <Route path="products/:id" element={<ProductDetail />} />
           <Route path="products/:id/edit" element={<ProductForm />} />

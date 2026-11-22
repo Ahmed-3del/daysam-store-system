@@ -1,4 +1,5 @@
-import { Plus, Users } from 'lucide-react'
+import { Plus, Send, Users } from 'lucide-react'
+import { useAuth } from '../lib/auth'
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Empty, Fab, Field, Loading, Modal, Money, PageHeader, SearchBox, Tabs } from '../components/ui'
@@ -16,10 +17,12 @@ function ContactList({ kind, agents }: { kind: 'customers' | 'suppliers'; agents
     kind: kind === 'suppliers' ? (agents ? 'agent' : 'supplier') : undefined,
   })
   const isCust = kind === 'customers'
+  const { isManager } = useAuth()
   return (
     <div className="space-y-3">
       <PageHeader title={isCust ? 'العملاء' : agents ? 'المناديب (شحن وماكينات)' : 'الموردين'}
-        subtitle={agents ? 'مناديب الشحن والتحصيل لماكينات الدفع والمحافظ: الرصيد المشحون آجل وتسديده' : undefined} />
+        subtitle={agents ? 'مناديب الشحن والتحصيل لماكينات الدفع والمحافظ: الرصيد المشحون آجل وتسديده' : undefined}
+        actions={isCust && isManager ? <Link to="/messaging" className="btn-secondary"><Send size={18} />مراسلة العملاء</Link> : undefined} />
       <SearchBox value={q} onChange={setQ} placeholder="الاسم أو رقم الموبايل" />
       <Tabs value={debt ? '1' : ''} onChange={(v) => setParams(v ? { debt: v } : {})} options={[
         { value: '', label: 'الكل' }, { value: '1', label: isCust ? 'عليهم مستحقات' : 'لهم مستحقات' },

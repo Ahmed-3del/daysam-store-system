@@ -1,13 +1,14 @@
-import { MessageCircle, Printer, RotateCcw, ShoppingCart } from 'lucide-react'
+import { Printer, RotateCcw, ShoppingCart } from 'lucide-react'
+import { InvoiceWhatsAppButton } from '../components/InvoiceWhatsApp'
 import { SmsButton } from '../components/Sms'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { InvoiceReceipt } from '../components/InvoiceReceipt'
 import { Field, InfoRow, Loading, Modal, Money, PageHeader } from '../components/ui'
 import { useApproval } from '../components/approval'
 import { api } from '../lib/api'
 import { useAuth } from '../lib/auth'
-import { money, whatsappLink } from '../lib/format'
+import { money } from '../lib/format'
 import { useAction, useGet } from '../lib/hooks'
 import type { Invoice } from '../lib/types'
 
@@ -17,16 +18,10 @@ export default function InvoiceDetail() {
   const { shop, isManager } = useAuth()
   const { data: inv, isLoading, refetch } = useGet<Invoice>(['invoices', id], `/invoices/${id}/`)
   const [returning, setReturning] = useState(false)
+  const receiptRef = useRef<HTMLDivElement>(null)
   if (isLoading || !inv || !shop) return <Loading />
 
   const link = `${window.location.origin}/i/${inv.public_token}`
-  const waText = [
-    `${shop.name}`, `فاتورة رقم #${inv.number}`,
-    ...inv.items.map((i) => `• ${i.name}${i.serial_number ? ` (${i.serial_number})` : ''} × ${i.quantity} = ${money(i.line_total, shop.currency)}`),
-    `الإجمالي: ${money(inv.total, shop.currency)}`,
-    Number(inv.remaining) > 0 ? `المتبقي: ${money(inv.remaining, shop.currency)}` : '',
-    `عرض الفاتورة: ${link}`, shop.invoice_footer,
-  ].filter(Boolean).join('\n')
   const canReturn = inv.status !== 'returned'
 
   return (
@@ -34,14 +29,14 @@ export default function InvoiceDetail() {
       <PageHeader back="/invoices" title={`فاتورة #${inv.number}`} subtitle={params.get('new') ? 'تم حفظ الفاتورة بنجاح ✅' : inv.status_display} />
       <div className="no-print flex flex-wrap gap-2">
         <button className="btn-primary" onClick={() => window.print()}><Printer size={18} />طباعة</button>
-        <a className="btn-success" target="_blank" rel="noreferrer" href={whatsappLink(inv.customer_phone, waText)}><MessageCircle size={18} />إرسال واتساب</a>
+        <InvoiceWhatsAppButton invoice={inv} shop={shop} receiptRef={receiptRef} />
         <SmsButton to={inv.customer_phone} kind="invoice" text={`${shop.name}: فاتورتك #${inv.number} بقيمة ${money(inv.total, shop.currency)}. ${link}`} />
         {canReturn && <button className="btn-secondary" onClick={() => setReturning(true)}><RotateCcw size={18} />مرتجع</button>}
         {params.get('new') && <Link to="/pos" className="btn-secondary"><ShoppingCart size={18} />بيع جديد</Link>}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <InvoiceReceipt invoice={inv} shop={shop} />
+        <div ref={receiptRef} className="h-fit"><InvoiceReceipt invoice={inv} shop={shop} /></div>
         <div className="no-print card h-fit p-4">
           <h2 className="mb-2 font-extrabold">تفاصيل</h2>
           <InfoRow label="الكاشير">{inv.cashier}</InfoRow>
