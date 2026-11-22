@@ -23,7 +23,7 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 
 @utility card { @apply rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/70; }
 @utility input {
-    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-[15px] outline-none transition
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-base outline-none transition
       focus:border-brand-500 focus:ring-2 focus:ring-brand-100 disabled:bg-slate-100;
   }
 @utility label { @apply mb-1 block text-sm font-semibold text-slate-600; }
@@ -39,7 +39,18 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 @utility chip { @apply inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-bold; }
 @utility list-row { @apply flex items-center gap-3 border-b border-slate-100 px-4 py-3 last:border-0; }
 
+/* iPhone notch / home bar (the app is installed full-screen with viewport-fit=cover) */
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+.pb-safe-4 { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+.pt-safe { padding-top: env(safe-area-inset-top); }
+.fab-bottom { bottom: calc(5rem + env(safe-area-inset-bottom)); }
+@media (min-width: 1024px) { .fab-bottom { bottom: 1.5rem; } }
+.pos-bar { bottom: calc(3.9rem + env(safe-area-inset-bottom)); }
+/* No 300ms double-tap zoom / font inflation on phones */
+html { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
+/* Main content clears the status bar (top) and the bottom nav + home bar on phones */
+.main-safe { padding-top: calc(1rem + env(safe-area-inset-top)); padding-bottom: calc(7rem + env(safe-area-inset-bottom)); }
+@media (min-width: 1024px) { .main-safe { padding-top: 1.5rem; padding-bottom: 2.5rem; } }
 
 @media print {
   body { background: #fff; }

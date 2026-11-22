@@ -49,10 +49,10 @@ export default function Cash() {
           ))}
         </div>
       )}
-      <div className="card grid grid-cols-3 divide-x divide-x-reverse divide-slate-100 text-center">
-        <div className="p-3"><div className="text-xs text-slate-500">{drawer ? 'رصيد الدرج' : multi ? 'إجمالي الأدراج' : 'رصيد الدرج الحالي'}</div><Money value={shown} className="text-lg font-extrabold" /></div>
-        <div className="p-3"><div className="text-xs text-slate-500">داخل (المعروض)</div><Money value={inSum} className="text-lg font-extrabold text-emerald-600" /></div>
-        <div className="p-3"><div className="text-xs text-slate-500">خارج (المعروض)</div><Money value={-outSum} className="text-lg font-extrabold text-rose-600" /></div>
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="card col-span-2 p-3 text-center sm:col-span-1"><div className="text-xs text-slate-500">{drawer ? 'رصيد الدرج' : multi ? 'إجمالي الأدراج' : 'رصيد الدرج الحالي'}</div><Money value={shown} className="text-lg font-extrabold" /></div>
+        <div className="card p-3 text-center"><div className="text-xs text-slate-500">داخل (المعروض)</div><Money value={inSum} className="text-lg font-extrabold text-emerald-600" /></div>
+        <div className="card p-3 text-center"><div className="text-xs text-slate-500">خارج (المعروض)</div><Money value={-outSum} className="text-lg font-extrabold text-rose-600" /></div>
       </div>
       <div className="flex items-center gap-2">
         <input className="input w-auto" type="date" value={day} onChange={(e) => { setDay(e.target.value); setPage(1) }} />

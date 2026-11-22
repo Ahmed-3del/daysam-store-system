@@ -41,7 +41,7 @@ export function PlatformLayout() {
   const { user, logout } = useAuth()
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-30 bg-slate-900 text-white">
+      <header className="pt-safe sticky top-0 z-30 bg-slate-900 text-white">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
           <img src="/pwa-192.png" alt="" className="size-9 rounded-xl" />
           <Link to="/platform" className="flex-1">

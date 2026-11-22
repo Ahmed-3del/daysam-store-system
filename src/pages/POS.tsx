@@ -272,9 +272,9 @@ export default function POS() {
         </div>
       )}
       <div className="grid gap-4 lg:grid-cols-5">
-        <div className="space-y-3 lg:col-span-3">
+        <div className="min-w-0 space-y-3 lg:col-span-3">
           <div className="flex gap-2">
-            <form onSubmit={onSearchSubmit} className="relative flex-1">
+            <form onSubmit={onSearchSubmit} className="relative min-w-0 flex-1">
               <SearchBox value={q} onChange={setQ} placeholder={`ابحث بالاسم أو اكتب/امسح الباركود أو ${serialWord}`} autoFocus
                 trailing={<button type="button" className="btn-primary px-3 py-2" onClick={() => setScan(true)} aria-label="مسح بالكاميرا"><ScanBarcode size={18} /></button>} />
               {dq && results && (
@@ -294,7 +294,7 @@ export default function POS() {
                 </div>
               )}
             </form>
-            <button className="btn-secondary px-3" onClick={() => setBundlePicker(true)}><Cpu size={18} /><span className="hidden sm:inline">باقة</span></button>
+            <button className="btn-secondary shrink-0 px-3" onClick={() => setBundlePicker(true)} aria-label="باقة"><Cpu size={18} /><span className="hidden sm:inline">باقة</span></button>
           </div>
 
           <div className="card">
@@ -350,7 +350,7 @@ export default function POS() {
           </div>
         </div>
 
-        <div className="lg:col-span-2">
+        <div className="min-w-0 lg:col-span-2">
           <div className="card sticky top-4 space-y-4 p-4">
             <CustomerPicker value={customer} onChange={setCustomer} required={needsCustomer} />
             <Tabs value={method} onChange={(m) => { setMethod(m); setReceived('') }} options={METHODS} />
@@ -414,6 +414,23 @@ export default function POS() {
       <BarcodeScanner open={tradeScan} onClose={closeTradeScan} onResult={onTradeScan} />
       <ProductSearchModal open={tradePick} title="منتج الجهاز المستبدل (بالسيريال)" onClose={() => setTradePick(false)}
         onPick={(p) => { if (p.track_serial) { setTradeProduct(p); setTradePick(false) } else toast.error('اختر منتجاً يتتبع السيريال') }} />
+      {/* Phones: total + checkout always reachable above the bottom navigation */}
+      {lines.length > 0 && (
+        <>
+          <div className="h-20 lg:hidden" />
+          <div className="pos-bar no-print fixed inset-x-0 z-30 border-t border-slate-200 bg-white/95 px-4 py-2.5 shadow-[0_-4px_16px_rgba(0,0,0,0.06)] backdrop-blur lg:hidden">
+            <div className="mx-auto flex max-w-xl items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="text-xs text-slate-500">{lines.reduce((s, l) => s + l.quantity, 0)} صنف{pendingSerials.length > 0 && <span className="text-amber-600"> · اختر {serialWord}</span>}</div>
+                <Money value={tradeValue ? due : total} className="block truncate text-lg font-extrabold" />
+              </div>
+              <button className="btn-primary shrink-0 px-6 py-3 text-base" disabled={busy || !!shiftMissing} onClick={checkout}>
+                {busy ? '...' : 'إتمام البيع'}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
       {offlineReceipt && shop && <OfflineReceiptModal sale={offlineReceipt} onClose={() => setOfflineReceipt(null)} />}
       <BundlePicker open={bundlePicker} onClose={() => setBundlePicker(false)} onPick={(b) => { addBundle(b); setBundlePicker(false) }} />
       <SerialPicker product={serialFor?.product ?? null} exclude={lines.flatMap((l) => (l.serial ? [l.serial.id] : []))}

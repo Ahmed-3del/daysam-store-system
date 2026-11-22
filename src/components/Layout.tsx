@@ -93,7 +93,7 @@ export default function Layout() {
         </button>
       </aside>
 
-      <main className="min-w-0 flex-1 px-4 pb-28 pt-4 sm:px-6 lg:pb-10 lg:pt-6">
+      <main className="main-safe min-w-0 flex-1 px-4 sm:px-6">
         {impersonatedBy && (
           <div className="no-print mx-auto mb-3 flex max-w-6xl items-center gap-2 rounded-2xl bg-violet-700 px-3 py-2 text-sm font-bold text-white">
             <span className="flex-1">أنت داخل محل «{shop?.name}» كمدير للمنصة ({impersonatedBy}) — للدعم الفني</span>

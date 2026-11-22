@@ -9,18 +9,20 @@ export function PageHeader({ title, back, actions, subtitle }: {
 }) {
   const nav = useNavigate()
   return (
-    <div className="no-print mb-4 flex items-center gap-2">
-      {back && (
-        <button className="btn-ghost -ms-2 px-2" aria-label="رجوع"
-          onClick={() => (typeof back === 'string' ? nav(back) : nav(-1))}>
-          <ArrowRight size={22} />
-        </button>
-      )}
-      <div className="min-w-0 flex-1">
-        <h1 className="truncate text-xl font-extrabold text-slate-900">{title}</h1>
-        {subtitle && <div className="text-sm text-slate-500">{subtitle}</div>}
+    <div className="no-print mb-4 flex flex-wrap items-center gap-x-2 gap-y-3">
+      <div className="flex min-w-0 flex-[1_1_12rem] items-center gap-2">
+        {back && (
+          <button className="btn-ghost -ms-2 size-10 shrink-0 p-0" aria-label="رجوع"
+            onClick={() => (typeof back === 'string' ? nav(back) : nav(-1))}>
+            <ArrowRight size={22} />
+          </button>
+        )}
+        <div className="min-w-0 flex-1">
+          <h1 className="text-xl font-extrabold leading-snug text-slate-900 [overflow-wrap:anywhere]">{title}</h1>
+          {subtitle && <div className="text-sm text-slate-500">{subtitle}</div>}
+        </div>
       </div>
-      {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
+      {actions && <div className="flex max-w-full flex-wrap items-center gap-2">{actions}</div>}
     </div>
   )
 }
@@ -51,12 +53,12 @@ export function Modal({ open, onClose, title, children, footer, wide }: {
   return (
     <div className="no-print fixed inset-0 z-50 flex items-end justify-center bg-slate-900/40 sm:items-center sm:p-4"
       onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className={`flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-xl sm:rounded-3xl ${wide ? 'sm:max-w-2xl' : 'sm:max-w-md'}`}>
+      <div className={`flex max-h-[92dvh] w-full flex-col rounded-t-3xl bg-white shadow-xl sm:rounded-3xl ${wide ? 'sm:max-w-2xl' : 'sm:max-w-md'}`}>
         <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
           <h2 className="text-lg font-extrabold">{title}</h2>
           <button className="btn-ghost px-2" onClick={onClose} aria-label="إغلاق"><X size={20} /></button>
         </div>
-        <div className="overflow-y-auto px-5 py-4">{children}</div>
+        <div className={`overflow-y-auto overscroll-contain px-5 py-4 ${footer ? '' : 'pb-safe-4'}`}>{children}</div>
         {footer && <div className="pb-safe flex gap-2 border-t border-slate-100 px-5 py-3">{footer}</div>}
       </div>
     </div>
@@ -154,7 +156,7 @@ export function InfoRow({ label, children }: { label: ReactNode; children: React
 export function Fab({ onClick, icon, label }: { onClick: () => void; icon: ReactNode; label: string }) {
   return (
     <button onClick={onClick} aria-label={label}
-      className="no-print btn-primary fixed bottom-20 start-4 z-30 h-14 rounded-2xl px-5 shadow-lg shadow-brand-700/30 lg:bottom-6">
+      className="no-print btn-primary fab-bottom fixed start-4 z-30 h-14 rounded-2xl px-5 shadow-lg shadow-brand-700/30 lg:bottom-6">
       {icon}<span>{label}</span>
     </button>
   )
