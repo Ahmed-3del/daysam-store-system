@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cairo", system-ui, sans-serif;
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-surface: #f6f7fb;
+}
+
+html, body, #root { min-height: 100%; }
+body {
+  @apply bg-surface text-slate-800 antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input, select, textarea, button { font: inherit; }
+input[type="number"] { -moz-appearance: textfield; }
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+@utility card { @apply rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/70; }
+@utility input {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-[15px] outline-none transition
+      focus:border-brand-500 focus:ring-2 focus:ring-brand-100 disabled:bg-slate-100;
+  }
+@utility label { @apply mb-1 block text-sm font-semibold text-slate-600; }
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition
+      active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+@utility btn-primary { @apply btn bg-brand-700 text-white hover:bg-brand-800; }
+@utility btn-secondary { @apply btn bg-white text-slate-700 ring-1 ring-slate-300 hover:bg-slate-50; }
+@utility btn-danger { @apply btn bg-rose-600 text-white hover:bg-rose-700; }
+@utility btn-success { @apply btn bg-emerald-600 text-white hover:bg-emerald-700; }
+@utility btn-ghost { @apply btn text-slate-600 hover:bg-slate-100; }
+@utility chip { @apply inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-bold; }
+@utility list-row { @apply flex items-center gap-3 border-b border-slate-100 px-4 py-3 last:border-0; }
+
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+@media print {
+  body { background: #fff; }
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  .card { box-shadow: none; --tw-ring-shadow: 0 0 #0000; }
+  @page { margin: 6mm; }
+  body.print-isolate > :not(.print-portal) { display: none !important; }
+}
+.print-only { display: none; }
