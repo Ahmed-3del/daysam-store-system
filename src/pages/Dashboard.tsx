@@ -2,6 +2,7 @@ import {
   AlertTriangle, Clock, ShieldCheck, CalendarClock, HandCoins, PackageMinus, Receipt, ShoppingCart, TrendingUp, Vault, Wallet, Wrench,
 } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
+import { PushPrompt } from '../components/Push'
 import { Loading, Money, StatCard } from '../components/ui'
 import { useAuth } from '../lib/auth'
 import { num } from '../lib/format'
@@ -38,6 +39,7 @@ export default function Dashboard() {
         <h1 className="text-2xl font-extrabold">{shop?.name}</h1>
       </div>
 
+      {isManager && <PushPrompt />}
       {isManager && pendingApprovals > 0 && (
         <Link to="/approvals" className="flex items-center gap-2 rounded-2xl bg-amber-100 p-3 text-sm font-bold text-amber-900">
           <ShieldCheck size={20} />{pendingApprovals} طلب بانتظار موافقتك<span className="ms-auto">عرض</span>
